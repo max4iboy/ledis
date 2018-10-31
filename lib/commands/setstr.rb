@@ -1,5 +1,5 @@
 module Commands
-  class Set
+  class SetStr
     def run(memory, params)
       key_value = params.split(' ')[1..-1]
       raise 'ERROR!' unless key_value.length == 2
