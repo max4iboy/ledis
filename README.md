@@ -19,7 +19,7 @@ ruby server.rb
 ```
 thin start
 ```
-5. Use the client as a console
+5. Use the HTTP client as a console
 ```
 ruby cli.rb
 ```
