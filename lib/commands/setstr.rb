@@ -5,6 +5,9 @@ module Commands
       raise 'ERROR!' unless key_value.length == 2
       key = key_value[0]
       value = key_value[1]
+      if !memory[key].nil? && !memory[key].is_a?(String)
+        raise 'ERROR!'
+      end
       memory[key] = value
       "OK"
     end

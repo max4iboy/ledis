@@ -8,7 +8,12 @@ module Command
     "rpush" => Commands::Rpush,
     "lpop" => Commands::Lpop,
     "rpop" => Commands::Rpop,
-    "lrange" => Commands::Lrange
+    "lrange" => Commands::Lrange,
+    "sadd" => Commands::Sadd,
+    "scard" => Commands::Scard,
+    "smembers" => Commands::Smembers,
+    "srem" => Commands::Srem,
+    "sinter" => Commands::Sinter
   }
 
   def self.parse_from(command)

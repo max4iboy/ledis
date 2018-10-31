@@ -10,7 +10,7 @@ module Commands
       ret_value = arr.shift
       memory[key] = arr
       memory.delete(key) if memory[key].empty?
-      ret_value
+      ret_value.to_s
     end
   end
 end
