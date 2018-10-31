@@ -10,6 +10,10 @@ class Ledis < Sinatra::Base
     register Sinatra::Reloader
   end
 
+  configure :production, :development do
+    enable :logging
+  end
+
   post '/' do
     begin
       command_string = params.first[0]
@@ -17,6 +21,7 @@ class Ledis < Sinatra::Base
       remote_mem = DRbObject.new_with_uri('druby://localhost:9999')
       command.run(remote_mem, command_string)
     rescue => e
+      logger.info(e.message)
       'ERROR!'
     end
   end
