@@ -13,7 +13,10 @@ module Command
     "scard" => Commands::Scard,
     "smembers" => Commands::Smembers,
     "srem" => Commands::Srem,
-    "sinter" => Commands::Sinter
+    "sinter" => Commands::Sinter,
+    "keys" => Commands::Keys,
+    "del" => Commands::Del,
+    "flushdb" => Commands::FlushDB
   }
 
   def self.parse_from(command)
