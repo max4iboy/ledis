@@ -18,7 +18,7 @@ class Ledis < Sinatra::Base
       remote_mem = DRbObject.new_with_uri('druby://localhost:9999')
       command.run(remote_mem, command_string)
     rescue => e
-      e.message
+      'ERROR!'
     end
   end
 end
