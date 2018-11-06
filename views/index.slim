@@ -1,2 +1,28 @@
-h1
-  | Ledis
+html
+  head
+    title Ledis
+    script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'}
+    javascript:
+      $(document).ready(function() {
+        $('#cmd').bind('keypress', function(e) {
+          if(e.keyCode == 13) {
+            var command_input = $(this)
+            $('#commands').append("<p> > " + command_input.val() + "<p>")
+
+            if(command_input.val().trim().length > 0) {
+              $.post('/', command_input.serialize(), function(data){
+                $('#commands').append("<p> " + data + "<p>")
+              },'text')
+            }
+            command_input.val('')
+          }
+        })
+      })
+  body
+    h1 Welcome to Ledis
+
+    h2
+      p
+        | > &nbsp;
+        input#cmd name='cmd' type='text'
+    #commands
