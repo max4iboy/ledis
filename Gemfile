@@ -5,6 +5,7 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'thin'
 gem 'rest-client'
+gem 'slim'
 
 group :development do
   gem 'pry'

@@ -14,6 +14,10 @@ class Ledis < Sinatra::Base
     enable :logging
   end
 
+  get '/' do
+    slim :index
+  end
+
   post '/' do
     begin
       command_string = params.first[0]
