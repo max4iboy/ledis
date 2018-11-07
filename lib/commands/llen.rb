@@ -1,3 +1,5 @@
+require './command'
+
 module Commands
   class Llen < Command
     def run(memory, params)

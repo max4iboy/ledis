@@ -1,3 +1,5 @@
+require './command'
+
 module Commands
   class Sinter < Command
     def run(memory, params)

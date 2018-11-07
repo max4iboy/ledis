@@ -1,3 +1,5 @@
+require './command'
+
 module Commands
   class Rpush < Command
     def run(memory, params)

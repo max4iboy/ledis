@@ -1,3 +1,5 @@
+require './command'
+
 module Commands
   class FlushDB < Command
     def run(memory, params)

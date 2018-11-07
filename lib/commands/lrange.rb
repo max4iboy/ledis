@@ -1,3 +1,5 @@
+require './command'
+
 module Commands
   class Lrange < Command
     def run(memory, params)

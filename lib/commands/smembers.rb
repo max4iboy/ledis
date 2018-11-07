@@ -1,3 +1,5 @@
+require './command'
+
 module Commands
   class Smembers < Command
     def run(memory, params)

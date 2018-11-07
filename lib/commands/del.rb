@@ -1,3 +1,5 @@
+require './command'
+
 module Commands
   class Del < Command
     def run(memory, params)

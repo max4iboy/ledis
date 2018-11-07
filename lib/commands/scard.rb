@@ -1,3 +1,5 @@
+require './command'
+
 module Commands
   class Scard < Command
     def run(memory, params)

@@ -1,3 +1,5 @@
+require './command'
+
 module Commands
   class Sadd < Command
     def run(memory, params)

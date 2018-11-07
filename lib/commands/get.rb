@@ -1,3 +1,5 @@
+require './command'
+
 module Commands
   class Get < Command
     def run(memory, params)

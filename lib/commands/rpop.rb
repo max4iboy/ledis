@@ -1,3 +1,5 @@
+require './command'
+
 module Commands
   class Rpop < Command
     def run(memory, params)

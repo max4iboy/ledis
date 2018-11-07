@@ -1,3 +1,5 @@
+require './command'
+
 module Commands
   class Srem < Command
     def run(memory, params)
