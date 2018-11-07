@@ -2,7 +2,7 @@ Dir['./lib/commands/*'].each {|file| require file}
 
 module Command
   COMMANDS = {
-    "set" => Commands::SetStr,
+    "set" => Commands::Set,
     "get" => Commands::Get,
     "llen" => Commands::Llen,
     "rpush" => Commands::Rpush,

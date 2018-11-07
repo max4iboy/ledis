@@ -6,8 +6,8 @@ module Commands
       key = key_value[0]
       members = key_value[1..-1]
       value = memory[key]
-      check_type(value, Set)
-      value ||= Set.new
+      check_type(value, ::Set)
+      value ||= ::Set.new
       count = 0
       members.each do |m|
         count += 1 unless value.include?(m)

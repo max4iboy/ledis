@@ -1,5 +1,5 @@
 module Commands
-  class SetStr < Command
+  class Set < Command
     def run(memory, params)
       key_value = params
       raise_wrong_arguments_number_error unless key_value.length == 2

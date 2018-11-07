@@ -6,7 +6,7 @@ module Commands
       key = key_value[0]
       members = key_value[1..-1]
       set = memory[key]
-      check_type(set, Set)
+      check_type(set, ::Set)
       return 0.to_s if set.nil?
       count = 0
       members.each do |m|
