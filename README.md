@@ -19,7 +19,4 @@ ruby server.rb
 ```
 thin start
 ```
-5. Use the HTTP client as a console
-```
-ruby cli.rb
-```
+5. Access the web page through `localhost:3000`
