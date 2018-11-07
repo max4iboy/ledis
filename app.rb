@@ -28,7 +28,12 @@ class Ledis < Sinatra::Base
       command.run(remote_mem, command_string.split(' ')[1..-1])
     rescue => e
       logger.info(e.message)
-      'ERROR!'
+      case e
+      when Commands::Command::WrongTypeError, Commands::Command::WrongArgumentsNumberError
+        e.message
+      else
+        'ERROR!'
+      end
     end
   end
 end
