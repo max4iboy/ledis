@@ -1,7 +1,7 @@
 module Commands
   class Llen
     def run(memory, params)
-      key_value = params.split(' ')[1..-1]
+      key_value = params
       raise 'ERROR!' unless key_value.length == 1
       key = key_value.first
       return 0.to_s if memory[key].nil?

@@ -25,7 +25,7 @@ class Ledis < Sinatra::Base
       command_string = params[:cmd]
       command = Command.parse_from(command_string.split.first.to_s.downcase)
       remote_mem = DRbObject.new_with_uri('druby://localhost:9999')
-      command.run(remote_mem, command_string)
+      command.run(remote_mem, command_string.split(' ')[1..-1])
     rescue => e
       logger.info(e.message)
       'ERROR!'

@@ -1,7 +1,7 @@
 module Commands
   class Lrange
     def run(memory, params)
-      key_value = params.split(' ')[1..-1]
+      key_value = params
       raise 'ERROR!' unless key_value.length == 3
       key = key_value[0]
       start = key_value[1]
