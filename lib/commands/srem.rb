@@ -1,4 +1,4 @@
-require './command'
+require './lib/commands/command'
 
 module Commands
   class Srem < Command
