@@ -8,12 +8,12 @@ module Commands
       stop = key_value[2]
       integer_reg = /\A[+-]?\d\z/
       raise 'ERROR!' unless integer_reg.match(start) && integer_reg.match(stop)
-      value = memory[key]
-      check_type(value, Array)
-      return "(empty list or set)" if value.nil?
-      result = value[start.to_i..stop.to_i]
-      return "(empty list or set)" if result.nil? || result.empty?
-      "'#{result.join("', '")}'"
+      result = memory.lrange(key, start.to_i, stop.to_i)
+      if result.nil? || result.empty?
+        "(empty list or set)"
+      else
+        "'#{result.join("', '")}'"
+      end
     end
   end
 end

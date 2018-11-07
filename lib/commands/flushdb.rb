@@ -3,7 +3,7 @@ module Commands
     def run(memory, params)
       key_value = params
       raise_wrong_arguments_number_error unless key_value.length == 0
-      memory.clear
+      memory.flushdb
       "OK"
     end
   end

@@ -5,6 +5,8 @@ require './lib/command'
 
 DRb.start_service
 
+class WrongTypeError < StandardError; end
+
 class Ledis < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
@@ -29,7 +31,7 @@ class Ledis < Sinatra::Base
     rescue => e
       logger.info(e.message)
       case e
-      when Commands::Command::WrongTypeError, Commands::Command::WrongArgumentsNumberError
+      when WrongTypeError, Commands::Command::WrongArgumentsNumberError
         e.message
       else
         'ERROR!'
