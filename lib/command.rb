@@ -16,7 +16,9 @@ module Command
     "sinter" => Commands::Sinter,
     "keys" => Commands::Keys,
     "del" => Commands::Del,
-    "flushdb" => Commands::FlushDB
+    "flushdb" => Commands::FlushDB,
+    "expire" => Commands::Expire,
+    "ttl" => Commands::Ttl
   }
 
   def self.parse_from(command)

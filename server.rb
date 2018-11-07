@@ -7,30 +7,36 @@ class LedisMem
 
   private
 
-  attr_accessor :memory
+  attr_accessor :memory, :ttl_h
 
   public
 
   def initialize
     @memory = {}
+    @ttl_h = {}
   end
 
   def set(key, value)
+    check_expire(key)
     check_type(memory[key], String)
+    ttl_h.delete(key)
     memory[key] = value
   end
 
   def get(key)
+    check_expire(key)
     check_type(memory[key], String)
     memory[key]
   end
 
   def llen(key)
+    check_expire(key)
     check_type(memory[key], Array)
     memory[key].nil? ? 0 : memory[key].length
   end
 
   def rpush(key, elements)
+    check_expire(key)
     check_type(memory[key], Array)
     arr = memory[key] || []
     arr.push(*elements)
@@ -39,6 +45,7 @@ class LedisMem
   end
 
   def lpop(key)
+    check_expire(key)
     check_type(memory[key], Array)
     arr = memory[key]
     return nil if arr.nil?
@@ -49,6 +56,7 @@ class LedisMem
   end
 
   def rpop(key)
+    check_expire(key)
     check_type(memory[key], Array)
     arr = memory[key]
     return nil if arr.nil?
@@ -59,6 +67,7 @@ class LedisMem
   end
 
   def lrange(key, start, stop)
+    check_expire(key)
     check_type(memory[key], Array)
     arr = memory[key]
     return nil if arr.nil?
@@ -66,6 +75,7 @@ class LedisMem
   end
 
   def sadd(key, members)
+    check_expire(key)
     check_type(memory[key], Set)
     set = memory[key] || Set.new
     new_mem_count = 0
@@ -78,16 +88,19 @@ class LedisMem
   end
 
   def scard(key)
+    check_expire(key)
     check_type(memory[key], Set)
     memory[key].nil? ? 0 : memory[key].length
   end
 
   def smembers(key)
+    check_expire(key)
     check_type(memory[key], Set)
     memory[key].nil? ? nil : memory[key].to_a
   end
 
   def srem(key, members)
+    check_expire(key)
     check_type(memory[key], Set)
     set = memory[key]
     return 0 if set.nil?
@@ -102,10 +115,12 @@ class LedisMem
   end
 
   def sinter(keys)
+    check_expire(keys.first)
     inter_set = memory[keys.first]
     check_type(inter_set, Set)
     inter_set ||= Set.new
     keys[1..-1].each do |key|
+      check_expire(key)
       set = memory[key]
       check_type(set, Set)
       set ||= ::Set.new
@@ -117,17 +132,44 @@ class LedisMem
 
   def del(key)
     memory.delete(key)
+    ttl_h.delete(key)
   end
 
   def keys
+    memory.keys.each do |key|
+      check_expire(key)
+    end
     memory.keys
   end
 
   def flushdb
     memory.clear
+    ttl_h.clear
+  end
+
+  def expire(key, seconds)
+    check_expire(key)
+    return 0 if memory[key].nil?
+    ttl_h[key] = Time.now + seconds
+    seconds
+  end
+
+  def ttl(key)
+    check_expire(key)
+    return -2 if memory[key].nil?
+    return -1 if ttl_h[key].nil?
+    (ttl_h[key] - Time.now).to_i
   end
 
   private
+
+  def check_expire(key)
+    if !memory[key].nil? && !ttl_h[key].nil?
+      if ttl_h[key] < Time.now
+        del(key)
+      end
+    end
+  end
 
   def check_type(value, type)
     if !value.nil? && !value.is_a?(type)
