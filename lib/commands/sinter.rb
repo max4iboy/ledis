@@ -1,8 +1,8 @@
 module Commands
-  class Sinter
+  class Sinter < Command
     def run(memory, params)
       key_value = params
-      raise 'ERROR!' unless key_value.length >= 1
+      raise_wrong_arguments_number_error unless key_value.length >= 1
       key = key_value[0]
       result = memory[key]
       result ||= Set.new
