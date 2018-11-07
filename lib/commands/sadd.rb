@@ -4,16 +4,16 @@ module Commands
       key_value = params
       raise_wrong_arguments_number_error unless key_value.length > 1
       key = key_value[0]
-      values = key_value[1..-1]
-      memory[key] ||= Set.new
-      raise 'ERROR!' unless memory[key].is_a? Set
+      members = key_value[1..-1]
+      value = memory[key]
+      check_type(value, Set)
+      value ||= Set.new
       count = 0
-      my_set = memory[key]
-      values.each do |v|
-        count += 1 unless my_set.include?(v)
-        my_set.add v
+      members.each do |m|
+        count += 1 unless value.include?(m)
+        value.add m
       end
-      memory[key] = my_set
+      memory[key] = value
       count.to_s
     end
   end
