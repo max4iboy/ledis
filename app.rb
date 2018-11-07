@@ -31,7 +31,7 @@ class Ledis < Sinatra::Base
     rescue => e
       logger.info(e.message)
       case e
-      when WrongTypeError, Commands::Command::WrongArgumentsNumberError
+      when WrongTypeError, Commands::Command::WrongArgumentsNumberError,Commands::Command::InvalidIntegerError
         e.message
       else
         'ERROR!'
