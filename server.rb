@@ -1,5 +1,6 @@
 require 'drb'
 require 'set'
+require 'yaml'
 
 class WrongTypeError < StandardError; end
 
@@ -159,6 +160,16 @@ class LedisMem
     return -2 if memory[key].nil?
     return -1 if ttl_h[key].nil?
     (ttl_h[key] - Time.now).to_i
+  end
+
+  def save
+    File.open('dump.yml', 'w') {|f| f.write memory.to_yaml}
+  end
+
+  def restore
+    data = YAML.load_file('dump.yml')
+    self.memory = data
+    ttl_h.clear
   end
 
   private

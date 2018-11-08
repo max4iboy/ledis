@@ -18,7 +18,9 @@ module Command
     "del" => Commands::Del,
     "flushdb" => Commands::FlushDB,
     "expire" => Commands::Expire,
-    "ttl" => Commands::Ttl
+    "ttl" => Commands::Ttl,
+    "save" => Commands::Save,
+    "restore" => Commands::Restore
   }
 
   def self.parse_from(command)
