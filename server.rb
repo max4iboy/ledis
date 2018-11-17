@@ -196,5 +196,7 @@ end
 
 memory = LedisMem.new
 
+$SAFE = 1 # disable eval() and friends
+
 DRb.start_service('druby://localhost:9999', memory)
 DRb.thread.join
