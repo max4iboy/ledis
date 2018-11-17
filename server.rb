@@ -2,7 +2,9 @@ require 'drb'
 require 'set'
 require 'yaml'
 
-class WrongTypeError < StandardError; end
+class WrongTypeError < StandardError
+  include DRb::DRbUndumped
+end
 
 class LedisMem
 
