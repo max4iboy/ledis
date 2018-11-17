@@ -39,52 +39,45 @@ class LedisMem
   def rpush(key, elements)
     check_expire(key)
     check_type(memory[key], Array)
-    arr = memory[key] || []
-    arr.push(*elements)
-    memory[key] = arr
-    arr.length
+    memory[key] ||= []
+    memory[key].push(*elements)
+    memory[key].length
   end
 
   def lpop(key)
     check_expire(key)
     check_type(memory[key], Array)
-    arr = memory[key]
-    return nil if arr.nil?
-    value = arr.shift
-    memory[key] = arr
-    del(key) if arr.empty?
+    return nil if memory[key].nil?
+    value = memory[key].shift
+    del(key) if memory[key].empty?
     value
   end
 
   def rpop(key)
     check_expire(key)
     check_type(memory[key], Array)
-    arr = memory[key]
-    return nil if arr.nil?
-    value = arr.pop
-    memory[key] = arr
-    del(key) if arr.empty?
+    return nil if memory[key].nil?
+    value = memory[key].pop
+    del(key) if memory[key].empty?
     value
   end
 
   def lrange(key, start, stop)
     check_expire(key)
     check_type(memory[key], Array)
-    arr = memory[key]
-    return nil if arr.nil?
-    arr[start..stop]
+    return nil if memory[key].nil?
+    memory[key][start..stop]
   end
 
   def sadd(key, members)
     check_expire(key)
     check_type(memory[key], Set)
-    set = memory[key] || Set.new
+    memory[key] ||= Set.new
     new_mem_count = 0
     members.each do |m|
-      new_mem_count += 1 unless set.include?(m)
-      set.add m
+      new_mem_count += 1 unless memory[key].include?(m)
+      memory[key].add m
     end
-    memory[key] = set
     new_mem_count
   end
 
@@ -103,15 +96,13 @@ class LedisMem
   def srem(key, members)
     check_expire(key)
     check_type(memory[key], Set)
-    set = memory[key]
-    return 0 if set.nil?
+    return 0 if memory[key].nil?
     removed_count = 0
     members.each do |m|
-      removed_count += 1 if set.include?(m)
-      set.delete(m)
+      removed_count += 1 if memory[key].include?(m)
+      memory[key].delete(m)
     end
-    memory[key] = set
-    del(key) if set.empty?
+    del(key) if memory[key].empty?
     removed_count
   end
 
