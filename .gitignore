@@ -1,2 +1,4 @@
 # Ignore .swp files
 *.swp
+
+dump.yml
